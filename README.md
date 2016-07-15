@@ -1,4 +1,4 @@
-# Insight Data Engineering Coding Challenge (Python 2.7)
+# Data Engineering Coding Challenge (Python 2.7)
 
 # Documentation
 
