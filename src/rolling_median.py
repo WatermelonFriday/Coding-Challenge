@@ -14,7 +14,7 @@ def main():
     G = nx.Graph()
     
     # initialize time objects
-    timestamp_upper = time.time()
+    timestamp_upper = time.time() # this should be disabled (below) if streaming data are used
     timestamp_lower = timegm(time.strptime('2009-04-01T00:00:00Z', '%Y-%m-%dT%H:%M:%SZ'))
     maxtimestamp = timestamp_lower
     
