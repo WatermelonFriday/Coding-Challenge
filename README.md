@@ -13,10 +13,10 @@ The code is essentially composed of three functions: `main(.)`, `conformity_chec
 - Lazily reads in rows of data and writes results to the output file line-by-line.
 - Contains the code dealing with converting lines of text ("JSON Line" entries) into Python dicts (see below for details).
 - Once a complete JSON entry is successfully read in, the code checks the conformity of keys and values with the "schema".
-- It then updates the graph, calculates the median degree of the updated graph and then writes the result to the output file.
+- It then updates the graph, calculates its median degree and writes the result to the output file.
 - Finally, it updates the timestamp of the most recent edge in the graph which facilitates the 60-second window analysis.
 
-The underlying assumption is that the JSON entries typically conform to the JSON (i.e. JSON Line) standard. That is, all keys are wrapped in double quotes and all string values are wrapped in double quotes (not required for numbers, booleans, missing values, etc.). Exception from this are deviations that show up as either blank lines and/or incomplete entries:
+My underlying assumption is that the JSON entries typically conform to the JSON (i.e. JSON Line) standard. That is, all keys are wrapped in double quotes and all string values are wrapped in double quotes (not required for numbers, booleans, missing values, etc.). An exception from this are deviations that show up as either blank lines and/or incomplete entries:
 
 1. If an input line is blank after stripping out the whitespaces (this includes \n, \r\n and \r characters), the code inserts a blank line in the output file.
 
