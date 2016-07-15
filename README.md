@@ -8,6 +8,8 @@ I used one non-standard Python module, networkx (v1.11), which can be installed 
 ## Performance
 The code can process the sample file containing roughly 1800 valid JSON entries in around 0.35 seconds on a 2012 Lenovo T430s with 8GB of RAM and no SSD.
 
+The code could be further sped up by using graph libraries written in C/C++ but with Python bindings (such as `graph-tool`, `python-igraph` or `NetworKit`). However, I thought the current implementation using networkx was fast enough for the case at hand.
+
 ## Structure of the code
 The code is composed of three functions: `main()`, `conformity_checks()` and `update_graph()`.
 
@@ -45,5 +47,3 @@ Once the graph is updated it is returned to the main function so that its median
 
 ## Miscellaneous
 The code has also been tested on a CentOS 6.7 server running Python 2.6 (in which case the networkx v1.9 had to be installed by running `pip install -Iv https://pypi.python.org/packages/source/n/networkx/networkx-1.9.tar.gz`).
-
-The code could be further sped up by using graph libraries written in C/C++ but with Python bindings (such as `graph-tool`, `python-igraph` or `NetworKit`). However, I thought the current implementation using networkx was fast enough for the case at hand.
