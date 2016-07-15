@@ -6,7 +6,6 @@ from numpy import median
 from json import loads
 
 
-
 def main():
     if len(sys.argv) != 3:
         raise ValueError('Need both input and output paths (and only that).')
@@ -64,7 +63,6 @@ def main():
     results.close()
 
 
-
 def conformity_checks(data, timestamp_upper, timestamp_lower):
     # check if all three keys present
     if all (key in data for key in ('created_time', 'actor', 'target')):
@@ -92,7 +90,6 @@ def conformity_checks(data, timestamp_upper, timestamp_lower):
         raise ValueError('Keys missing.')
 
 
-
 def update_graph(G, data, timestamp, maxtimestamp, timestamp_lower):
     # iff new entry also most recent (i.e. timestamp > maxtimestamp), check (& prune) edges and nodes
     # pruning not required if updating the graph for the first time (maxtimestamp == timestamp_lower)
@@ -116,7 +113,6 @@ def update_graph(G, data, timestamp, maxtimestamp, timestamp_lower):
     
     # return updated graph
     return G
-
 
 
 if __name__ == '__main__':
