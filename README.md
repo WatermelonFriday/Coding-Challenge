@@ -3,7 +3,7 @@
 # Documentation
 
 ## Intro
-I used one non-standard Python module, networkx (v1.11), which can be installed using `pip install networkx`. Other standard modules used were `numpy`, `sys`, `time`, `calendar` and `json`.
+I used one non-standard Python module, `networkx` v1.11, which can be installed using `pip install networkx`. Other standard modules used were `numpy`, `sys`, `time`, `calendar` and `json`.
 
 ## Performance
 The code can process the sample file containing roughly 1800 valid JSON entries in around 0.35 seconds on a 2012 Lenovo T430s with 8GB of RAM and no SSD.
@@ -46,4 +46,4 @@ Once the graph has been pruned, the new edge is added to the graph if up to 60 s
 Once the graph is updated it is returned to the main function so that its median degree can be calculated and the result written to the output file.
 
 ## Miscellaneous
-The code has also been tested on a CentOS 6.7 server running Python 2.6 (in which case the networkx v1.9 had to be installed by running `pip install -Iv https://pypi.python.org/packages/source/n/networkx/networkx-1.9.tar.gz`).
+The code has also been tested on a CentOS 6.7 server running Python 2.6 (in which case the `networkx` v1.9 had to be installed by running `pip install -Iv https://pypi.python.org/packages/source/n/networkx/networkx-1.9.tar.gz`).
