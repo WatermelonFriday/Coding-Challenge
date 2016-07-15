@@ -5,6 +5,9 @@
 ## Intro
 I used one non-standard Python module, networkx (v1.11), which can be installed using `pip install networkx`. Other standard modules used were numpy, sys, time, calendar and json.
 
+## Performance
+The code can process the sample file containing roughly 1800 JSON complete entries in around 0.35 seconds.
+
 ## Structure of the code
 The code is essentially composed of three functions: `main(.)`, `conformity_checks(.)` and `update_graph(.)`.
 
