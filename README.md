@@ -29,18 +29,18 @@ In the context of this exercise, "schema" is a loosely defined combination of th
 
 Further, the timestamp of each entry must be based on the `%Y-%m-%dT%H:%M:%SZ` datetime mask. Also, timestamps cannot be from before the time Venmo was founded (April 2009 as per http://www.crunchbase.com/organization/venmo) and are bounded above by the current time. Any other datetime format that does not adhere to the above mask is considered invalid; same goes for timestamps outside of the allowed range. In these cases, the timestamp check fails, the entry is skipped and the median degree of the previous iteration of the graph (or a blank line) is written to the output file.
 
-Actor and target (collectively, username) values must conform to the patterns observed in the sample data and when logged in one's Venmo online profile. This means that usernames can only be alphanumeric strings between 5 and 25 (incl.) characters long, and have to start with a letter. The only two other characters allowed are `-` (dash) and `_` (underscore).
+Actor and target (collectively, username) values must conform to the patterns observed in the sample data and when logged in one's Venmo online profile. This means that usernames can only be alphanumeric strings between 5 and 25 (incl.) characters long, and have to start with a letter. The only two other characters allowed are "-" (dash) and "_" (underscore).
 
 If the JSON entry passes all checks, the timestamp calculated is returned to the main function to avoid computing it twice and then the code moves on to updating the graph. If the entry fails at least one test, the median degree of the previous iteration is written to the file (subject to the first-entry exception).
 
 ### update_graph(.)
-Upon successfully reading in an entry, the function inspects if the new entry is more recent that the most recent existing entry. If so, some edges and nodes might have to be removed, so it checks the edges and removes them if necessary. After that it also checks if there are any newly-disconnected nodes. This is done only after at least one edge has already been added to the graph.
+Upon successfully reading in the entry, the function inspects if the new entry is more recent that the most recent existing entry. If so, some edges and nodes might have to be removed. This is done only after at least one edge has already been added to the graph.
 
-Once the graph has been pruned, the new edge is added to the graph if up to 60 seconds older than the most recent edge and if an edge between the same two nodes does not yet exist. If such an edge already exists, the code checks if the new edge is newer (more recent) than the existing one and if it falls in the 60-second window. If so, it overwrites the existing edge; if not, it discards it. Likewise the edge is discarded if it falls outside of the 60-second window.
+Once the graph has been pruned, the new edge is added to the graph if up to 60 seconds older than the most recent edge and if another edge between the same two nodes does not yet exist. If such an edge does already exist, the code checks if the new edge is newer (more recent) than the existing one and if it falls in the 60-second window. If so, it overwrites the existing edge; if not, it discards it. Likewise the edge is discarded if it falls outside of the 60-second window.
 
 Once the graph is updated it is returned to the main function so that its median degree can be calculated and the result written to the output file.
 
 ## Miscellaneous
-The code has been also tested on a CentOS 6.7 server running Python 2.6 (in which case the networkx v1.9 had to be installed by running `pip install -Iv https://pypi.python.org/packages/source/n/networkx/networkx-1.9.tar.gz`).
+The code has also been tested on a CentOS 6.7 server running Python 2.6 (in which case the networkx v1.9 had to be installed by running `pip install -Iv https://pypi.python.org/packages/source/n/networkx/networkx-1.9.tar.gz`).
 
 The code could be further sped up by using graph libraries written in C/C++ but with Python bindings (such as `graph-tool`, `python-igraph` or `NetworKit`). However, I thought the current implementation using networkx was fast enough for the case at hand.
