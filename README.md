@@ -9,9 +9,9 @@ I used one non-standard Python module, networkx (v1.11), which can be installed 
 The code can process the sample file containing roughly 1800 JSON complete entries in around 0.35 seconds on a 2012 Lenovo T430s with 8GB of RAM and no SSD.
 
 ## Structure of the code
-The code is essentially composed of three functions: `main(.)`, `conformity_checks(.)` and `update_graph(.)`.
+The code is essentially composed of three functions: `main()`, `conformity_checks()` and `update_graph()`.
 
-### main(.)
+### main()
 - Initializes the empty graph and the auxilliary time objects required for the computation of the 60-second rolling window.
 - Lazily reads in rows of data and writes results to the output file line-by-line.
 - Contains the code dealing with converting lines of text ("JSON Line" entries) into Python dicts (see below for details).
@@ -27,7 +27,7 @@ My underlying assumption is that the JSON entries typically conform to the JSON 
 
 3. This way, the output file will always have the same number of rows than there are input lines (i.e. lines terminated by either \r, \n, or \r\n in the input file).
 
-### conformity_checks(.)
+### conformity_checks()
 In the context of this exercise, "schema" is a loosely defined combination of three keys & values. For the JSON entry to pass these checks, it needs to have all three key-value pairs.
 
 Further, the timestamp of each entry must be based on the `%Y-%m-%dT%H:%M:%SZ` datetime mask. Also, timestamps cannot be from before the time Venmo was founded (April 2009 as per http://www.crunchbase.com/organization/venmo) and are bounded above by the current time. Any other datetime format that does not adhere to the above mask is considered invalid; same goes for timestamps outside of the allowed range. In these cases, the timestamp check fails, the entry is skipped and the median degree of the previous iteration of the graph (or a blank line) is written to the output file.
@@ -36,7 +36,7 @@ Actor and target (collectively, username) values must conform to the patterns ob
 
 If the JSON entry passes all checks, the timestamp calculated is returned to the main function to avoid computing it twice and then the code moves on to updating the graph. If the entry fails at least one test, the median degree of the previous iteration is written to the file (subject to the first-entry exception).
 
-### update_graph(.)
+### update_graph()
 Upon successfully reading in the entry, the function inspects if the new entry is more recent that the most recent existing entry. If so, some edges and nodes might have to be removed. This is done only after at least one edge has already been added to the graph.
 
 Once the graph has been pruned, the new edge is added to the graph if up to 60 seconds older than the most recent edge and if another edge between the same two nodes does not yet exist. If such an edge does already exist, the code checks if the new edge is newer (more recent) than the existing one and if it falls in the 60-second window. If so, it overwrites the existing edge; if not, it discards it. Likewise the edge is discarded if it falls outside of the 60-second window.
